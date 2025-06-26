@@ -1,19 +1,20 @@
-name: Deploy to Elastic Beanstalk
+name: Deploy to Elastic BeanstalkAdd commentMore actions
 
 on:
   push:
     branches:
       - main
       - feat/backend-operation
-
+      - feat/integration
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     env:
       AWS_REGION: ap-northeast-2
-      APPLICATION_NAME: "motive-backend"
-      ENVIRONMENT_NAME: "Motive-backend-env"
+      APPLICATION_NAME: "motive-back"
+      ENVIRONMENT_NAME: "Motive-back-env"
+
 
     steps:
       - name: Checkout code
@@ -79,4 +80,4 @@ jobs:
         run: |
           eb init -p "Docker" ${{ env.APPLICATION_NAME }} --region ${{ env.AWS_REGION }}
           eb use ${{ env.ENVIRONMENT_NAME }}
-          eb deploy --staged
+          eb deploy --staged --timeout 50
